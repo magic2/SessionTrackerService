@@ -57,6 +57,7 @@
     <Compile Include="ConnectionProviders\MySqlConnectionProvider.cs" />
     <Compile Include="ConnectionProviders\SqlServerConnectionProvider.cs" />
     <Compile Include="Entities\SessionLogItem.cs" />
+    <Compile Include="Entities\TrackerInstance.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -64,7 +65,9 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="Repositories\ISessionLogRepository.cs" />
+    <Compile Include="Repositories\ITrackerInstanceRepository.cs" />
     <Compile Include="Repositories\SessionLogRepository.cs" />
+    <Compile Include="Repositories\TrackerInstanceRepository.cs" />
     <Compile Include="TrackerService.cs">
       <SubType>Component</SubType>
     </Compile>

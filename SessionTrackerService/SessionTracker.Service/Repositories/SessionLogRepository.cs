@@ -19,11 +19,11 @@
             connectionProvider = connectionProviderFactory.GetConnectionProvider();
         }
 
-        public void LogSessionEvent(int sessionId, string userName, string userDomain, SessionChangeReason sessionChangeReason)
+        public void LogSessionEvent(Guid trackerInstanceId, int sessionId, string userName, string userDomain, SessionChangeReason sessionChangeReason)
         {
             const string InsertSessionLogSqlQuery = @"
-INSERT SessionLog(SessionId, UserName, UserDomain, SessionChangeReason, CreatedAt) 
-VALUES (@SessionId, @UserName, @UserDomain, @SessionChangeReason, @CreatedAt);
+INSERT SessionLog(TrackerInstanceId, SessionId, UserName, UserDomain, SessionChangeReason, CreatedAt) 
+VALUES (@TrackerInstanceId, @SessionId, @UserName, @UserDomain, @SessionChangeReason, @CreatedAt);
 ";
             var sessionLogItem = new SessionLogItem
                                      {
@@ -31,12 +31,14 @@ VALUES (@SessionId, @UserName, @UserDomain, @SessionChangeReason, @CreatedAt);
                                          SessionChangeReason = sessionChangeReason.ToString(),
                                          UserDomain = userDomain,
                                          UserName = userName,
-                                         SessionId = sessionId
+                                         SessionId = sessionId,
+                                         TrackerInstanceId = trackerInstanceId
                                      };
 
             using (var connection = connectionProvider.GetConnection())
             {
                 connection.Execute(InsertSessionLogSqlQuery, sessionLogItem, commandType: CommandType.Text);
-            }}
+            }
+        }
     }
 }

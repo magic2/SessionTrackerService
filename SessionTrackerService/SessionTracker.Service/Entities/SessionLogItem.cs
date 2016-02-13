@@ -10,5 +10,6 @@
         public string UserDomain { get; set; }
         public string SessionChangeReason { get; set; }
         public DateTime CreatedAt { get; set; }
+        public Guid TrackerInstanceId { get; set; }
     }
 }

@@ -4,6 +4,7 @@
     using System.Runtime.InteropServices;
     using System.ServiceProcess;
     using System.Threading.Tasks;
+    using System.Timers;
 
     using NLog;
 
@@ -53,7 +54,13 @@
 
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
-        private readonly SessionLogRepository sessionLogRepository;
+        private readonly ISessionLogRepository sessionLogRepository;
+
+        private readonly ITrackerInstanceRepository trackerInstanceRepository;
+
+        private Guid trackerInstanceId;
+
+        private Timer timer;
 
         private class User
         {
@@ -71,7 +78,9 @@
         {
             InitializeComponent();
 
-            sessionLogRepository = new SessionLogRepository(new ConnectionProviderFactory());
+            var connectionProviderFactory = new ConnectionProviderFactory();
+            sessionLogRepository = new SessionLogRepository(connectionProviderFactory);
+            trackerInstanceRepository = new TrackerInstanceRepository(connectionProviderFactory);
         }
 
         static void Main(string[] args)
@@ -93,10 +102,16 @@
 
         protected override void OnStart(string[] args)
         {
+            trackerInstanceId = trackerInstanceRepository.LogStartEvent(System.Environment.MachineName);
+
+            timer = new Timer { Interval = TimeSpan.FromMinutes(1).TotalMilliseconds };
+            timer.Elapsed += TimerOnElapsed;
+            timer.Start();
         }
 
         protected override void OnStop()
         {
+            timer.Stop();
         }
 
         protected override void OnSessionChange(SessionChangeDescription changeDescription)
@@ -104,7 +119,12 @@
             base.OnSessionChange(changeDescription);
             var user = UserInformation(changeDescription.SessionId);
 
-            sessionLogRepository.LogSessionEvent(changeDescription.SessionId, user.Name, user.Domain, changeDescription.Reason);
+            sessionLogRepository.LogSessionEvent(trackerInstanceId, changeDescription.SessionId, user.Name, user.Domain, changeDescription.Reason);
+        }
+
+        private void TimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            trackerInstanceRepository.UpdateState(trackerInstanceId);
         }
 
         private static User UserInformation(int sessionId)
