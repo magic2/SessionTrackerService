@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SessionTracker.Service")]
+[assembly: AssemblyTitle("SessionTracker.TrayAgent")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Magic2")]
-[assembly: AssemblyProduct("SessionTracker")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SessionTracker.TrayAgent")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a1bdf190-e572-421c-b6cd-74214307e8be")]
+[assembly: Guid("581effe9-7f92-4850-bfa9-366370e6b4c2")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -9,6 +9,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SessionTracker.Setup", "Ses
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionTracker.Service.AutoUpdate", "SessionTracker.Service.AutoUpdate\SessionTracker.Service.AutoUpdate.csproj", "{0DC9AAF9-DA34-4E88-B5DD-C24A3226DEF4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionTracker.TrayAgent", "SessionTracker.TrayAgent\SessionTracker.TrayAgent.csproj", "{581EFFE9-7F92-4850-BFA9-366370E6B4C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0DC9AAF9-DA34-4E88-B5DD-C24A3226DEF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DC9AAF9-DA34-4E88-B5DD-C24A3226DEF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DC9AAF9-DA34-4E88-B5DD-C24A3226DEF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{581EFFE9-7F92-4850-BFA9-366370E6B4C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{581EFFE9-7F92-4850-BFA9-366370E6B4C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{581EFFE9-7F92-4850-BFA9-366370E6B4C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{581EFFE9-7F92-4850-BFA9-366370E6B4C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
