@@ -5,15 +5,60 @@
 
     public partial class MainForm : Form
     {
+        private bool allowVisible;
+        private bool allowClose;
+
         public MainForm()
         {
             InitializeComponent();
-            this.notifyIcon.Click += NotifyIconOnClick;
+            notifyIcon.ContextMenuStrip = contextMenuStrip;
+            toolExit.Click += ToolExitClick;
+            toolShow.Click += ToolShowClick;
+            toolHide.Click += ToolHideClick;
         }
 
-        private void NotifyIconOnClick(object sender, EventArgs eventArgs)
+        protected override void SetVisibleCore(bool value)
         {
-            notifyIcon.ShowBalloonTip(1000, "Hello", "This is a balloontip!", ToolTipIcon.Info);
+            if (!allowVisible)
+            {
+                value = false;
+                if (!IsHandleCreated) CreateHandle();
+            }
+
+            base.SetVisibleCore(value);
         }
+
+        private void ToolHideClick(object sender, EventArgs e)
+        {
+            Hide();
+            toolHide.Visible = false;
+            toolShow.Visible = true;
+        }
+
+        private void ToolShowClick(object sender, EventArgs e)
+        {
+            allowVisible = true;
+            Show();
+            toolHide.Visible = true;
+            toolShow.Visible = false;
+        }
+
+        private void ToolExitClick(object sender, EventArgs e)
+        {
+            allowClose = true;
+            Application.Exit();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (!allowClose)
+            {
+                Hide();
+                e.Cancel = true;
+            }
+
+            base.OnFormClosing(e);
+        }
+
     }
 }
